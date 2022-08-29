@@ -1,3 +1,11 @@
+-- Creating Regiment Table
+-- Regiment Code-varchar-Primary Key
+-- Regiment Name-varchar
+-- Headquarter City-varchar
+-- Current Strength-int
+-- Maximum Strength-int
+-- Commander Id-varchar
+
 create table regiment (
 regimentcode varchar(20) Primary key,
 rname varchar(20) not null,
@@ -6,15 +14,33 @@ currstrength int not null,
 maxstrength int not null,
 commanderid varchar(20) not null
 );
+
+-- Creating Location Table
+-- District-varchar-primary key
+-- State-varchar
+-- Country-varchar
+
 create table location (
 district varchar(20) primary key,
 state varchar(20) not null,
 country varchar(20) not null
 );
+-- Creating salary Table
+-- Salary Rank-varchar-primary Key
+-- Salary-int
+
 create table salary(
 sRank varchar(20) Primary key,
 salary INT not null
 );
+
+-- Creating Operation Table
+-- Operation Code-varchar-Primary Key
+-- Operation Name-varchar
+-- Start Date-date
+-- End Date-date
+-- OutCome-varchar
+
 create table operation (
 operationcode varchar(20) primary key,
 oname varchar(20) not null,
@@ -22,6 +48,25 @@ startdate date not null,
 enddate date not null,
 outcome varchar(20) not null
 );
+
+-- -- Creating Soldier Table
+-- Soldier Id-varchar-Primary Key
+-- Soldier Name-varchar
+-- Date of Birth-date
+-- Date of Joining-date
+-- Height-int
+-- Weight-int
+-- Gender-char
+-- District-varchar
+-- Regiment Code-varchar
+-- Operation code-varchar
+-- Soldier Rank-varchar
+-- Foreign Key References
+-- District From Location
+-- Regiment Code from Regiment
+-- Operation Code from Operation
+-- Soldier Rank from Salary
+
 create table soldier (
 soldierid varchar(20) Primary key,
 sname varchar(20) not null,
@@ -40,11 +85,14 @@ foreign key (operationcode) references
 operation(operationcode),
 foreign key (srank) references salary(srank)
 );
+--Creating weapon Table
+
 create table weapon (
 weaponid varchar(20) Primary key,
 wname varchar(20) not null,
 wtype varchar(20) not null
 );
+-- Creating Vehicle Table
 create table vehicle (
 vehicleid varchar(20) Primary key,
 vname varchar(20) not null,
@@ -52,11 +100,13 @@ vtype varchar(20) not null,
 fueltype varchar(20) not null,
 manyear int not null
 );
+-- Creating Equipment Table
 create table equipment (
 equipmentid varchar(20) Primary key,
 ename varchar(20) not null,
 etype varchar(20) not null
 );
+-- Creating Weapons Inventory Table
 create table weaponsinventory (
 quantity int not null,
 regimentcode varchar(20) not null,
@@ -65,6 +115,8 @@ foreign key (regimentcode) references regiment
 (regimentcode),
 foreign key (weaponid) references weapon(weaponid)
 );
+
+-- Creating Vehicles Inventory Table
 create table vehiclesinventory (
 quantity int not null,
 regimentcode varchar(20) not null,
@@ -73,6 +125,8 @@ foreign key (regimentcode) references regiment
 (regimentcode),
 foreign key (vehicleid) references vehicle(vehicleid)
 );
+
+-- Creating Equipments Inventory Table
 create table equipmentsinventory (
 quantity int not null,
 regimentcode varchar(20) not null,
@@ -81,17 +135,23 @@ foreign key (regimentcode) references regiment
 (regimentcode),
 foreign key (equipmentid) references equipment(equipmentid)
 );
+
+-- Creating Medals Table
 create table medals (
 medalid varchar(20) primary key,
 medalname varchar(20) not null,
 prize INT not null
 );
+
+-- Creating Honors Table
 create table honors (
 medalid varchar(20) not null,
 soldierid varchar(20) not null,
 foreign key (medalid) references medals(medalid),
 foreign key (soldierid) references soldier (soldierid)
 );
+
+-- Creating Posting Table
 create table posting (
 pfrom date not null,
 ptill date not null,
@@ -100,6 +160,8 @@ district varchar(20) not null,
 foreign key(soldierid) references soldier(soldierid),
 foreign key(district) references location(district)
 );
+
+-- Creating Family Table
 create table family (
 fathername varchar(20) not null,
 soldierid varchar(20) not null,
@@ -108,6 +170,8 @@ maritalstatus char not null,
 foreign key (soldierid) references soldier (soldierid),
 primary key(soldierid, fathername)
 );
+
+-- Inserting Data in Regiment Table
 INSERT INTO
 regiment
 VALUES
@@ -120,6 +184,8 @@ VALUES
 ),
 ( "R04", "Jat Regiment", "Bareilly", 51, 95, "S18"
 );
+
+-- Inserting Data in Operation Table
 INSERT INTO
 operation
 VALUES
@@ -135,6 +201,8 @@ VALUES
 ( "O04", "Operation Maitri", '2015-02-02', '2015-05- 07',
 "Successful"
 );
+
+-- Inserting Data in Salary Table
 INSERT INTO
 salary
 VALUES
@@ -144,6 +212,8 @@ VALUES
 ("Colonel", 65000),
 ("Brigadier", 73000),
 ("Lieutenant", 35000);
+
+-- Inserting Data in location Table
 INSERT INTO
 location
 VALUES
@@ -157,6 +227,8 @@ VALUES
 ("Tehri", "Uttarakhand", "India"),
 ("Indore", "Madhya Pradesh", "India"),
 ("Allahabad", "Uttar Pradesh", "India");
+
+-- Inserting Data in soldier Table
 INSERT INTO
 soldier
 VALUES
@@ -240,6 +312,8 @@ VALUES
 165,
 62, 'F', "Patna", "R02", "O04", "Colonel"
 );
+
+-- Inserting Data in weapon Table
 INSERT INTO
 weapon
 VALUES
@@ -253,6 +327,8 @@ VALUES
 ("W08", "M4A1 Carbine", "AR"),
 ("W09", "Steyr SSG", "Sniper Rifle"),
 ("W10", "M249", "Machine Gun");
+
+-- Inserting Data in vehicle Table
 INSERT INTO
 vehicle
 VALUES
@@ -268,6 +344,8 @@ VALUES
 ),
 ( "V08", "Mazda R1", "Light Utility", "Petrol", 2009
 );
+
+-- Inserting Data in equipment Table
 INSERT INTO
 equipment
 VALUES
@@ -277,6 +355,8 @@ VALUES
 ("E04", "HE Grenade", "Utility"),
 ("E05", "Health Pack", "Medicine"),
 ("E06", "First Aid Kit", "Medicine");
+
+-- Inserting Data in weapons inventory Table
 INSERT INTO
 weaponsinventory
 VALUES
@@ -375,6 +455,8 @@ VALUES
 5
 , "R04"
 , "W10");
+
+-- Inserting Data in vehicles Inventory Table
 INSERT INTO
 vehiclesinventory
 VALUES (5, "R01"
@@ -439,6 +521,8 @@ VALUES (5, "R01"
 2
 , "R04"
 , "V03");
+
+-- Inserting Data in eqipments inventory Table
 INSERT INTO
 equipmentsinventory
 VALUES
@@ -466,6 +550,8 @@ VALUES
 (58, "R04", "E04"),
 (27, "R04", "E05"),
 (38, "R04", "E06");
+
+-- Inserting Data in medals Table
 INSERT INTO
 medals
 VALUES
@@ -475,6 +561,8 @@ VALUES
 ("M04", "Sarvottam Seva Medal", 42500),
 ("M05", "Uttam Seva Medal", 35550),
 ("M06", "Sena Medal", 15000);
+
+-- Inserting Data in honors Table
 INSERT INTO
 honors
 VALUES
@@ -501,6 +589,8 @@ VALUES
 ("M06", "S03"),
 ("M02", "S15"),
 ("M03", "S03");
+
+-- Inserting Data in posting Table
 INSERT INTO
 posting
 VALUES
@@ -530,6 +620,8 @@ VALUES
 ('2017-08-16', '2020-11-11', "S18", "Almora"),
 ('2015-04-21', '2020-07-15', "S19", "Allahabad"),
 ('2016-01-16', '2020-11-13', "S20", "Lucknow");
+
+-- Inserting Data in family Table
 INSERT INTO
 family
 VALUES
